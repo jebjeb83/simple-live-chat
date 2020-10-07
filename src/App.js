@@ -1,24 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import ChatLayout from './components/ChatLayout'
+import Login from './components/Login'
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [username, setUsername] = useState('')
+  const [isAnonymous, setIsAnonymous] = useState(false)
+  const [messages, setMessages] = useState([])
+  const [message, setMessage] = useState('')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      {
+        !isLoggedIn ? 
+          <Login
+            setIsLoggedIn={setIsLoggedIn}
+            username={username}
+            setUsername={setUsername}
+          /> : 
+          <ChatLayout
+            setIsLoggedIn={setIsLoggedIn}
+            username={username}
+            setUsername={setUsername}
+            isAnonymous={isAnonymous}
+            setIsAnonymous={setIsAnonymous}
+            messages={messages}
+            setMessages={setMessages}
+            message={message}
+            setMessage={setMessage}
+          />
+      }
     </div>
   );
 }
